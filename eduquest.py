@@ -29,7 +29,7 @@ class EduQuest:
             self.manager = ManagerAgent()
             self.planner = PlannerAgent()
             self.quizzer = QuizAgent()
-            print(f"{Fore.GREEN}✓ All agents initialized successfully{Style.RESET_ALL}\n")
+            print(f"{Fore.GREEN}All agents initialized successfully{Style.RESET_ALL}\n")
         except Exception as e:
             print(f"{Fore.RED}Error initializing agents: {e}{Style.RESET_ALL}")
             print(f"{Fore.YELLOW}Please check your .env file and API key{Style.RESET_ALL}")
@@ -38,7 +38,7 @@ class EduQuest:
     def run(self):
         """Main application loop"""
         # Display welcome message
-        print(f"{Fore.MAGENTA}{self.manager.get_welcome_message()}{Style.RESET_ALL}")
+        print(f"{Fore.WHITE}{self.manager.get_welcome_message()}{Style.RESET_ALL}")
         
         while True:
             try:
@@ -142,7 +142,7 @@ class EduQuest:
         if plan_result.get("success"):
             # Display the plan
             print(f"{Fore.GREEN}{'='*60}{Style.RESET_ALL}")
-            print(f"{Fore.MAGENTA}{plan_result['plan']}{Style.RESET_ALL}")
+            print(f"{Fore.WHITE}{plan_result['plan']}{Style.RESET_ALL}")
             print(f"{Fore.GREEN}{'='*60}{Style.RESET_ALL}")
             
             # Store in session
@@ -156,6 +156,11 @@ class EduQuest:
             
             # Ask if they want to start quizzing
             print(f"\n{Fore.CYAN}Would you like to quiz yourself on any of these topics? (yes/no){Style.RESET_ALL}")
+            quiz_response = input(f"{Fore.GREEN}Answer: {Style.RESET_ALL}").strip().lower()
+            
+            if quiz_response in ['yes', 'y', 'yeah', 'sure']:
+                # Start quiz with the topics from the study plan
+                self._handle_quiz_start({"topics": topics, "subject": subject})
             
         else:
             print(f"{Fore.RED}Error creating plan: {plan_result.get('message')}{Style.RESET_ALL}")
@@ -192,7 +197,7 @@ class EduQuest:
         session.start_quiz(topics, num_questions)
         
         # Display intro
-        print(f"{Fore.MAGENTA}{self.quizzer.generate_quiz_intro(topics, num_questions)}{Style.RESET_ALL}")
+        print(f"{Fore.WHITE}{self.quizzer.generate_quiz_intro(topics, num_questions)}{Style.RESET_ALL}")
         
         # Generate and ask first question
         self._ask_next_question()
@@ -294,11 +299,11 @@ class EduQuest:
             
             # Display evaluation
             if is_correct:
-                print(f"{Fore.GREEN}✓ CORRECT!{Style.RESET_ALL}\n")
+                print(f"{Fore.GREEN}CORRECT!{Style.RESET_ALL}\n")
             elif is_partial:
-                print(f"{Fore.YELLOW}⚠ PARTIALLY CORRECT{Style.RESET_ALL}\n")
+                print(f"{Fore.YELLOW}PARTIALLY CORRECT{Style.RESET_ALL}\n")
             else:
-                print(f"{Fore.RED}✗ INCORRECT{Style.RESET_ALL}\n")
+                print(f"{Fore.RED}INCORRECT{Style.RESET_ALL}\n")
             
             print(f"{Fore.WHITE}{evaluation}{Style.RESET_ALL}\n")
             
@@ -366,7 +371,7 @@ class EduQuest:
             weak_areas=weak_topics if weak_topics else None
         )
         
-        print(f"{Fore.MAGENTA}{summary}{Style.RESET_ALL}")
+        print(f"{Fore.WHITE}{summary}{Style.RESET_ALL}")
         
         # End session
         session.end_quiz()
@@ -389,7 +394,7 @@ class EduQuest:
     
     def _handle_exit(self):
         """Handle application exit"""
-        print(f"\n{Fore.CYAN}Thank you for using EduQuest! Keep up the great work! 🎓{Style.RESET_ALL}")
+        print(f"\n{Fore.CYAN}Thank you for using EduQuest! Keep up the great work!{Style.RESET_ALL}")
         print(f"{Fore.YELLOW}Remember: Consistent study beats cramming every time!{Style.RESET_ALL}\n")
 
 

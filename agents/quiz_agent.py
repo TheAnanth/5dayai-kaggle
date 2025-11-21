@@ -72,6 +72,13 @@ Topic: {topic}
 Difficulty Level: {difficulty}
 Question {question_number} of {total_questions}{previous_context}
 
+CRITICAL CONSTRAINTS:
+- ONLY test knowledge of {topic}
+- DO NOT require knowledge of other topics or operations
+- If topic is "addition", ONLY use addition - no multiplication, division, or other operations
+- Questions must be solvable using ONLY the stated topic
+- Keep questions focused and simple for the difficulty level
+
 TASK:
 Generate ONE high-quality question about {topic} at {difficulty} difficulty level.
 
@@ -83,6 +90,7 @@ DIFFICULTY: {difficulty}
 
 Make the question clear, specific, and educational.
 For MCQs, ensure all options are plausible.
+REMEMBER: Only test {topic} - no other mathematical operations or concepts!
 """
 
         try:
@@ -197,7 +205,7 @@ Make feedback educational and encouraging.
         
         return f"""
 ╔═══════════════════════════════════════════════════════════╗
-║                 Quiz Session Starting! 📝                 ║
+║                 Quiz Session Starting!                    ║
 ╚═══════════════════════════════════════════════════════════╝
 
 Topics: {topics_str}
@@ -210,7 +218,7 @@ INSTRUCTIONS:
 • Try to explain your reasoning when possible
 • Learn from the explanations provided
 
-Ready? Let's begin! 🚀
+Ready? Let's begin!
 """
     
     def generate_quiz_summary(self, score: int, total: int, 
@@ -231,21 +239,21 @@ Ready? Let's begin! 🚀
         
         # Determine performance level
         if percentage >= 90:
-            performance = "Excellent! 🌟"
+            performance = "Excellent!"
             message = "You have a strong grasp of these topics!"
         elif percentage >= 75:
-            performance = "Good Job! 👍"
+            performance = "Good Job!"
             message = "You're doing well, just a few areas to review."
         elif percentage >= 60:
-            performance = "Fair 📚"
+            performance = "Fair"
             message = "You understand the basics, but need more practice."
         else:
-            performance = "Needs Improvement 💪"
+            performance = "Needs Improvement"
             message = "Don't worry! Review the concepts and try again."
         
         summary = f"""
 ╔═══════════════════════════════════════════════════════════╗
-║                Quiz Complete! 🎓                          ║
+║                Quiz Complete!                             ║
 ╚═══════════════════════════════════════════════════════════╝
 
 SCORE: {score}/{total} ({percentage:.1f}%)
@@ -287,6 +295,6 @@ Keep it brief (1-2 sentences)."""
                 prompt,
                 generation_config={'temperature': 0.5}
             )
-            return f"💡 Hint: {response.text.strip()}"
+            return f"Hint: {response.text.strip()}"
         except Exception as e:
-            return "💡 Hint: Think about the fundamental concepts of this topic."
+            return "Hint: Think about the fundamental concepts of this topic."

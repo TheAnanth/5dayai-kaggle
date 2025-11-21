@@ -119,16 +119,15 @@ Analyze this input and respond with the JSON object as specified."""
         """Get welcome message for new users"""
         return """
 ╔═══════════════════════════════════════════════════════════╗
-║              Welcome to EduQuest! 🎓                      ║
+║              Welcome to EduQuest!                         ║
 ╚═══════════════════════════════════════════════════════════╝
 
-I'm your AI study concierge, designed to eliminate analysis paralysis
-and help you prepare effectively for exams.
+Hi! I'm your AI tutor designed to help u ace ur exams.
 
 I can help you:
-  📅 Create structured study plans based on your timeline
-  ❓ Quiz you on specific topics with real-time feedback
-  📊 Track your progress and identify weak areas
+  - Create structured study plans based on your timeline
+  - Quiz you on specific topics with real-time feedback
+  - Track your progress and identify weak areas
 
 Examples of what you can say:
   • "I have a Java exam in 3 days covering OOPs and Threads"
@@ -142,7 +141,7 @@ What would you like to do today?
     def get_help_message(self) -> str:
         """Get help information"""
         return """
-📖 EduQuest Help
+EduQuest Help
 
 CREATING STUDY PLANS:
   Tell me about your exam, subject, topics, and timeline.
